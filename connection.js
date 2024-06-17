@@ -4,6 +4,7 @@ const dbConnection = new Sequelize('ecommerce_api', 'root', '', {
     host: 'localhost',
     dialect: 'mysql' ,
     define:{timestamps:true},
+    logging:console.log
     
   });
   

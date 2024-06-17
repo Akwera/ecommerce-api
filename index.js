@@ -3,7 +3,7 @@ const express = require("express");
 //convert to json
 const bodyParser = require("body-parser");
 const {dbConnection, syncModels } = require("./connection")
-
+//syncModels()
 
 require("dotenv").config();
 //json response small
@@ -20,7 +20,7 @@ const PORT = process.env.PORT
 dbConnection.sync()
 .then(() => {
     console.log("Database synchronized");
-    syncModels()
+    
 })
 .catch((error) => {
     console.error("Error synchronizing database:", error);

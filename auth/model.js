@@ -6,9 +6,9 @@ const UserModel = dbConnection.define(
   'UserModel',
   {
     userId: {
-        type: Datatypes.INTEGER,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
-        primary: true
+        primaryKey: true
     },
     // Model attributes are defined here
     userName: {
