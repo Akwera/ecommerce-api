@@ -1,3 +1,4 @@
+const CategoryModel = require("../category/model");
 const { dbConnection } = require("../connection");
 const { DataTypes } = require("sequelize");
 // const { ProductModel } = require("../products/model");
@@ -5,7 +6,7 @@ const VendorModel = dbConnection.define(
   "VendorModel",
   {
     vendorId: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -27,9 +28,12 @@ const VendorModel = dbConnection.define(
       // allowNull defaults to true
     },
     category: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
-      // allowNull defaults to true
+      references: {
+        model: CategoryModel,
+        key: "categoryId",
+      },
     },
   },
   {

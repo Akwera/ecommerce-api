@@ -5,8 +5,7 @@ const bodyParser = require("body-parser");
 const { dbConnection, syncModels } = require("./connection");
 const VendorModel = require("./vendor/model");
 const ProductModel = require("./products/model");
-
-// syncModels();
+//syncModels();
 
 require("dotenv").config();
 //json response small
@@ -15,6 +14,8 @@ const authRoutes = require("./auth/routes");
 const productRoutes = require("./products/routes");
 const vendorRoutes = require("./vendor/routes");
 const validationToken = require("./middleware/validateToken");
+const categoryRoutes = require("./category/routes");
+const CategoryModel = require("./category/model");
 
 const app = express();
 
@@ -38,10 +39,12 @@ app.get("/", (req, res) => {
 
 VendorModel.hasMany(ProductModel, { foreignKey: "vendorId" });
 ProductModel.belongsTo(VendorModel, { foreignKey: "vendorId", as: "vendor" });
-
+CategoryModel.hasMany(VendorModel, { foreignKey: "category" });
+VendorModel.belongsTo(CategoryModel, { foreignKey: "category", as: "type" });
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/products", validationToken, productRoutes);
 app.use("/api/v1/vendors", validationToken, vendorRoutes);
+app.use("/api/v1/categories", categoryRoutes);
 
 app.listen(PORT, () => {
   console.log("app running on port:" + PORT);

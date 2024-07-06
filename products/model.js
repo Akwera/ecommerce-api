@@ -15,12 +15,12 @@ const ProductsModel = dbConnection.define(
       allowNull: false,
     },
 
-    category_name: {
-      type: DataTypes.STRING(13),
-      allowNull: false,
+    // category_name: {
+    //   type: DataTypes.STRING(13),
+    //   allowNull: false,
 
-      // allowNull defaults to true
-    },
+    //   // allowNull defaults to true
+    // },
     categoryId: {
       type: DataTypes.STRING,
       allowNull: false,

@@ -1,6 +1,6 @@
+const CategoryModel = require("../category/model");
 const ProductsModel = require("../products/model");
 const VendorModel = require("./model");
-
 
 const deleteVendorById = async (req, res) => {
   const id = req.params.id;
@@ -26,7 +26,9 @@ const deleteVendorById = async (req, res) => {
 };
 const getVendors = async (req, res) => {
   try {
-    const Vendors = await VendorModel.findAll();
+    const Vendors = await VendorModel.findAll({
+      include: [{ model: CategoryModel, as: "type" }],
+    });
     res.send({ error: false, message: "Vendors retrieved", data: Vendors });
   } catch (error) {
     res.send(error.message);
@@ -47,7 +49,9 @@ const getVendorProducts = async (req, res) => {
 const getVendor = async (req, res) => {
   const id = req.params.id;
   try {
-    const Vendor = await VendorModel.findByPk(id);
+    const Vendor = await VendorModel.findByPk(id, {
+      include: [{ model: CategoryModel, as: "category" }],
+    });
     if (Vendor) {
       res.send({
         error: false,
@@ -81,6 +85,9 @@ const createVendor = async (req, res) => {
       res.send("an error occured");
     }
   } catch (error) {
+    console.log(error);
+    console.log(req.body);
+
     res.send(error.message);
   }
 };
